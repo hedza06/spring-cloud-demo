@@ -1,0 +1,79 @@
+# Spring Cloud Project Example
+This project demonstrates usage of a native Spring Cloud dependencies
+for building microservice architecture based on Java and Spring Boot.
+
+## Cloud system components
+The system consists of the following components:
+1. Configuration Service
+2. Discovery Service
+3. Gateway Service
+4. Custom User Service replicated twice
+5. Custom Product Service replicated twice
+
+
+### Configuration Service (Spring Cloud Config Server)
+Spring Cloud Config Server provides an HTTP resource-based API 
+for external configuration. The server is embeddable in a Spring Boot application, 
+by using the `@EnableConfigServer` annotation.
+
+The purpose of this server is to store the externalized configuration used by other services.
+
+
+### Discovery Service (Spring Cloud Eureka Server)
+Eureka Server is service discovery for your microservices, where all client applications can register by 
+themselves and other microservices look up the Eureka Server to get independent microservices to get the job complete.
+
+Eureka Server is also known as Discovery Server and it contains all the information about client microservices 
+running on which IP address and port. Eureka Server can also provide essential metrics for each microservice.
+
+
+### Gateway Service (Spring Cloud Gateway Server)
+The Gateway Service provides out-of-the-box routing mechanisms often used in microservices applications 
+as a way of hiding multiple services behind a single facade.
+
+Being focused on routing requests, the Spring Cloud Gateway forwards requests to 
+a Gateway Handler Mapping – which determines what should be done with requests matching a specific route.
+
+Spring Cloud Gateway matches routes using the Spring WebFlux HandlerMapping infrastructure.
+
+It also includes many built-in Route Predicate Factories. All of these predicates match different attributes 
+of the HTTP request. Multiple Route Predicate Factories can be combined via the logical “and”.
+
+Route matching can be applied both programmatically or via configuration properties file using a different type 
+of Route Predicate Factories.
+
+
+### Custom User Service
+This microservice is custom-made service that has its own database and it's completely independent from 
+other custom-made services.
+
+### Custom Product Service
+This microservice is custom-made service that has its own database and it's completely independent from
+other custom-made services.
+
+Using Open Feign Client, it implements inner communication with User Service. 
+Open Feign is HTTP Client which provides load balancing out-of-the box and many other features.
+
+### Architecture Diagram
+...Diagram here...
+
+### Coming next...
+Next steps would be:
+1. Adding keycloak as authorization server (secure custom microservices)
+2. Adding Spring Cloud Vault
+3. Implementation of hexagonal architecture
+
+### Contribution/Suggestions
+If someone is interested for contribution or have some suggestions please contact me on e-mail hedzaprog@gmail.com.
+There are more to come from hexagonal architecture and first I'm planing to write tests for given examples in project.
+
+### Author
+Heril Muratović  
+Software Engineer  
+
+Mobile: +38269657962  
+E-mail: hedzaprog@gmail.com  
+Skype: hedza06  
+Twitter: hedzakirk  
+LinkedIn: https://www.linkedin.com/in/heril-muratovi%C4%87-021097132/  
+StackOverflow: https://stackoverflow.com/users/4078505/heril-muratovic
