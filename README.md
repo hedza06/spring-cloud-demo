@@ -54,20 +54,20 @@ other custom-made services.
 Using Open Feign Client, it implements inner communication with User Service. 
 Open Feign is HTTP Client which provides load balancing out-of-the box and many other features.
 
-### Architecture Diagram
+## Architecture Diagram
 ...Diagram here...
 
-### Coming next...
+## Coming next...
 Next steps would be:
 1. Adding keycloak as authorization server (secure custom microservices)
 2. Adding Spring Cloud Vault
 3. Implementation of hexagonal architecture
 
-### Contribution/Suggestions
+## Contribution/Suggestions
 If someone is interested for contribution or have some suggestions please contact me on e-mail hedzaprog@gmail.com.
 There are more to come from hexagonal architecture and first I'm planing to write tests for given examples in project.
 
-### Author
+## Author
 Heril Muratović  
 Software Engineer  
 
