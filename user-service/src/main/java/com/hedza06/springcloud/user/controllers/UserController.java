@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Slf4j
@@ -44,7 +41,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/user/{email}/assign-product")
+    @PutMapping(value = "/{email}/assign-product")
     public ResponseEntity<Void> assignProductToUser(@RequestBody ProductDTO productDTO, @PathVariable String email)
     {
         userService.assignProductToUser(productDTO.getSourceIdentifier(), email);

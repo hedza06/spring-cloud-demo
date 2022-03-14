@@ -1,6 +1,18 @@
 server:
   port: 9090
 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/products_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+  # Liquibase Config
+  liquibase:
+    change-log: classpath:liquibase/master.xml
+
 eureka:
   client:
     serviceUrl:

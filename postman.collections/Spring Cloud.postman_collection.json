@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "6170b547-ae4e-4645-a561-f612e1fcfcce",
+		"name": "Spring Cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Product-17891\",\n    \"description\": \"New product description-17891\",\n    \"sourceIdentifier\": \"17891\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8060/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"product"
+					]
+				},
+				"description": "Request for creating new product"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign product to user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 5,\n    \"name\": \"Product-17890\",\n    \"description\": \"New product description\",\n    \"sourceIdentifier\": \"17890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8060/product/assign-to-user/jack.doe@test.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"product",
+						"assign-to-user",
+						"jack.doe@test.com"
+					]
+				},
+				"description": "Request for assigning existing to user."
+			},
+			"response": []
+		},
+		{
+			"name": "Getting assigned users to product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8060/product/17890/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"product",
+						"17890",
+						"users"
+					]
+				},
+				"description": "Request for getting all users assigned to given product identifier"
+			},
+			"response": []
+		}
+	]
+}

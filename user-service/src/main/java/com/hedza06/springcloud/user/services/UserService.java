@@ -21,10 +21,22 @@ public class UserService {
     private final UserProductRepository userProductRepository;
 
 
+    /**
+     * Getting all users assigned to given product
+     *
+     * @param productId product source identifier
+     * @return List of UserDTO Objects
+     */
     public List<UserDTO> findByProductSource(String productId) {
         return userRepository.findByProductSourceIdentifier(productId);
     }
 
+    /**
+     * Assign product to given user
+     *
+     * @param sourceIdentifier product source identifier
+     * @param email user email address
+     */
     @Transactional
     public void assignProductToUser(String sourceIdentifier, String email)
     {

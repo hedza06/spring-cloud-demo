@@ -1,7 +1,6 @@
 package com.hedza06.springcloud.product.controllers;
 
 import com.hedza06.springcloud.product.clients.dto.UserDTO;
-import com.hedza06.springcloud.product.clients.feigns.UserClient;
 import com.hedza06.springcloud.product.dto.ProductDTO;
 import com.hedza06.springcloud.product.entities.Product;
 import com.hedza06.springcloud.product.services.ProductService;
@@ -34,13 +33,20 @@ public class ProductController {
         return new ResponseEntity<>("Happy coding from product world!", HttpStatus.OK);
     }
 
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<ProductDTO>> all()
+    {
+        List<ProductDTO> products = productService.findAll();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{productId}/users")
     public ResponseEntity<List<UserDTO>> byProductSourceIdentifier(@PathVariable String productId)
     {
         log.info("Product Context - Request for getting users by product with id: {}", productId);
         log.info("Sending request using feign client to get users by product identifier...");
 
-        List<UserDTO> users = productService.findByProductId(productId);
+        List<UserDTO> users = productService.findUsersByProductId(productId);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

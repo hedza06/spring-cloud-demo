@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-14T00:51:30+0100",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.10 (AdoptOpenJDK)"
+    date = "2022-03-14T12:50:17+0100",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17 (Homebrew)"
 )
 @Component
 public class ProductMapperImpl implements ProductMapper {
@@ -27,5 +27,21 @@ public class ProductMapperImpl implements ProductMapper {
         product.setSourceIdentifier( productDTO.getSourceIdentifier() );
 
         return product;
+    }
+
+    @Override
+    public ProductDTO toProductDTO(Product product) {
+        if ( product == null ) {
+            return null;
+        }
+
+        ProductDTO productDTO = new ProductDTO();
+
+        productDTO.setId( product.getId() );
+        productDTO.setName( product.getName() );
+        productDTO.setDescription( product.getDescription() );
+        productDTO.setSourceIdentifier( product.getSourceIdentifier() );
+
+        return productDTO;
     }
 }

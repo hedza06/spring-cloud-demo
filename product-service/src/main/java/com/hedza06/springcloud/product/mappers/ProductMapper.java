@@ -9,4 +9,5 @@ import org.mapstruct.ReportingPolicy;
 public interface ProductMapper
 {
     Product toProductEntity(ProductDTO productDTO);
+    ProductDTO toProductDTO(Product product);
 }

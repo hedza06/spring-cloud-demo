@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserClient
 {
     @GetMapping(value = "/user/by-product/{productId}")
-    List<UserDTO> findByProductId(@PathVariable(value = "productId") String productSourceIdentifier);
+    List<UserDTO> findUsersByProductId(@PathVariable(value = "productId") String productSourceIdentifier);
 
     @PutMapping(value = "/user/{email}/assign-product")
     void assignProductToUserWithEmailAddress(@RequestBody ProductDTO productDTO, @PathVariable String email);
