@@ -2,6 +2,7 @@
 This project demonstrates usage of a native Spring Cloud dependencies
 for building microservice architecture based on Java and Spring Boot.
 
+
 ## Cloud system components
 The system consists of the following components:
 1. Configuration Service
@@ -54,8 +55,30 @@ other custom-made services.
 Using Open Feign Client, it implements inner communication with User Service. 
 Open Feign is HTTP Client which provides load balancing out-of-the box and many other features.
 
+
 ## Architecture Diagram
 ...Diagram here...
+
+
+## Running the project
+1. Navigate to project directory and run command: `docker-compose build && docker-compose up -d`. This command will 
+run MySQL database on port `3307/tcp`.
+2. Configure Compound in IntelliJ (running multiple instances)
+
+
+## Application ports
+1. Config server: `8088/tcp`
+2. Discovery server (Eureka): `8061/tcp`
+3. Gateway server: `8060/tcp`
+4. User microservice (instance one): `9900/tcp`
+5. User microservice (instance two): `9901/tcp`
+6. Product microservice (instance one): `9090/tcp`
+7. Product microservice (instance two): `9091/tcp`
+
+## REST API Services
+In folder `postman.collections` you can find JSON file that can be imported in Postman,
+so you can use REST API services and test inner communication between services through gateway service.
+
 
 ## Coming next...
 Next steps would be:
@@ -63,9 +86,11 @@ Next steps would be:
 2. Adding Spring Cloud Vault
 3. Implementation of hexagonal architecture
 
+
 ## Contribution/Suggestions
 If someone is interested for contribution or have some suggestions please contact me on e-mail hedzaprog@gmail.com.
 There are more to come from hexagonal architecture and first I'm planing to write tests for given examples in project.
+
 
 ## Author
 Heril Muratović  
