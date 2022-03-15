@@ -57,7 +57,7 @@ Open Feign is HTTP Client which provides load balancing out-of-the box and many 
 
 
 ## Architecture Diagram
-![alt text](https://github.com/hedza06/spring-cloud/blob/master/spring-cloud-platform.png)
+![alt text](https://github.com/hedza06/spring-cloud-demo/blob/master/spring-cloud-platform.png)
 
 
 ## Running the project
