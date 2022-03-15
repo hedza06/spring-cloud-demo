@@ -62,7 +62,7 @@ Open Feign is HTTP Client which provides load balancing out-of-the box and many 
 
 ## Running the project
 1. Navigate to project directory and run command: `docker-compose build && docker-compose up -d`. This command will 
-run MySQL database on port `3307/tcp`.
+run MySQL database on port `3307/tcp`. Also, the authorization server (KeyCloak) will be started at port `8888/tcp`.
 2. Configure Compound in IntelliJ (running multiple instances)
 
 
@@ -74,6 +74,101 @@ run MySQL database on port `3307/tcp`.
 5. User microservice (instance two): `9901/tcp`
 6. Product microservice (instance one): `9090/tcp`
 7. Product microservice (instance two): `9091/tcp`
+8. MySQL Database: `3307/tcp`
+9. KeyCloak Authorization Server: `8888/tcp`
+
+
+## Authorization
+Authorization is used only while microservices (user & product) communicate with each other. 
+
+The service that initiate HTTP request first must send authentication request to KeyCloak, and after getting an access 
+token, can consume other REST APIs which require access token.
+
+KeyCloak configuration from User microservice looks like the following:
+```
+keycloak:
+  auth-server-url: http://localhost:8888/auth
+  realm: SpringCloudKeycloak
+  resource: product-user
+  principal-attribute: product-user
+  public-client: true
+```
+You should pay attention to configure all access data (realm, user, roles etc.) on KeyCloak before running 
+the Demo Cloud Project.
+
+Access (client) configuration from Product microservice looks like the following:
+```
+custom-auth:
+  url: "http://localhost:8888/auth/realms/SpringCloudKeycloak/protocol/openid-connect/token"
+  client-id: product-client
+  client-username: product-user
+  client-password: productuser321
+```
+
+### Open Feign Client Interceptor
+User microservice endpoints only process authenticated requests which means that every client should first get the access
+token from KeyCloak and then call specific API. In this use case, product service acts like client
+and consumes endpoint from User service (but first it needs the access token).
+
+Getting the access token is implemented using `FeignClientInterceptor` which
+implements `RequestInterceptor`.
+
+```
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class FeignClientInterceptor implements RequestInterceptor {
+
+    private final RestTemplate restTemplate;
+    private final KeycloakCredentialsConfig credentialsConfig;
+
+
+    @Override
+    public void apply(RequestTemplate requestTemplate)
+    {
+        String accessToken = getAuthToken();
+        requestTemplate.header("Authorization", "Bearer " + accessToken);
+    }
+
+    /**
+     * Getting access token from KeyCloak Auth Server
+     *
+     * @return String value of access token
+     */
+    private String getAuthToken()
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("client_id", credentialsConfig.getClientId());
+        params.add("username", credentialsConfig.getClientUsername());
+        params.add("password", credentialsConfig.getClientPassword());
+        params.add("grant_type", "password");
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+        try
+        {
+            String url = credentialsConfig.getUrl();
+            ResponseEntity<KeycloakToken> responseEntity = restTemplate.exchange(
+                url, HttpMethod.POST, requestEntity, KeycloakToken.class
+            );
+            String accessToken = Objects.requireNonNull(responseEntity.getBody()).getAccessToken();
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(accessToken, null, null);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            return accessToken;
+        }
+        catch (RestClientException e) {
+            log.error("Error occur while authenticating to KeyCloak. Message: {}", e.getMessage());
+        }
+        return null;
+    }
+}
+```
+Possible improvement in this use case can be to store access token for specific amount of time
+in Redis database. This logic will be implemented soon.
 
 ## REST API Services
 In folder `postman.collections` you can find JSON file that can be imported in Postman,

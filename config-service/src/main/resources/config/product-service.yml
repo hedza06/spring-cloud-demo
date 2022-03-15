@@ -17,3 +17,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8061/eureka/
+
+
+custom-auth:
+  url: "http://localhost:8888/auth/realms/SpringCloudKeycloak/protocol/openid-connect/token"
+  client-id: product-client
+  client-username: product-user
+  client-password: productuser321

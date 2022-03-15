@@ -2,10 +2,7 @@ version: '3.2'
 
 services:
   local-db:
-    build:
-      context: .
-      dockerfile: db.dockerfile
-    image: hedza06/user-db:8.0.22
+    image: mysql:8.0.22
     ports:
       - "3307:3307"
     volumes:
@@ -18,6 +15,19 @@ services:
       TZ: 'Europe/Belgrade'
     restart: on-failure
     container_name: local_db
+    networks:
+      - cloudnet
+
+  auth-srv:
+    image: jboss/keycloak:12.0.4
+    ports:
+      - "8888:8080"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      TZ: 'Europe/Belgrade'
+    restart: on-failure
+    container_name: keycloak
     networks:
       - cloudnet
 
