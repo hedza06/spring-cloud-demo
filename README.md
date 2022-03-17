@@ -177,8 +177,8 @@ so you can use REST API services and test inner communication between services t
 
 ## Coming next...
 Next steps would be:
-1. Adding keycloak as authorization server (secure custom microservices)
-2. Implementation of hexagonal architecture
+1. Adding keycloak as authorization server (secure custom microservices) -> `DONE!`
+2. Implementation of hexagonal architecture -> https://github.com/hedza06/spring-cloud-demo/tree/hexagonal/architecture -> `DONE!`
 3. Adding Spring Cloud Vault
 
 
