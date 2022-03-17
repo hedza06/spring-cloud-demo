@@ -1,7 +1,7 @@
 package com.hedza06.springcloud.product.mappers;
 
+import com.hedza06.springcloud.product.domain.Product;
 import com.hedza06.springcloud.product.dto.ProductDTO;
-import com.hedza06.springcloud.product.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

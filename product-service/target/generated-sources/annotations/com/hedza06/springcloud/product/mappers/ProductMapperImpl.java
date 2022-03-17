@@ -1,13 +1,13 @@
 package com.hedza06.springcloud.product.mappers;
 
+import com.hedza06.springcloud.product.domain.Product;
 import com.hedza06.springcloud.product.dto.ProductDTO;
-import com.hedza06.springcloud.product.entities.Product;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-15T21:14:30+0100",
+    date = "2022-03-17T01:11:02+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.10 (AdoptOpenJDK)"
 )
 @Component

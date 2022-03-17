@@ -1,6 +1,5 @@
-package com.hedza06.springcloud.product.clients.feigns;
+package com.hedza06.springcloud.product.config;
 
-import com.hedza06.springcloud.product.config.KeycloakCredentialsConfig;
 import com.hedza06.springcloud.product.dto.KeycloakToken;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

@@ -1,4 +1,4 @@
-package com.hedza06.springcloud.product.entities;
+package com.hedza06.springcloud.user.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,32 +9,35 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Getter
 @Setter
-@ToString
 @Entity
-@Table(name = "product")
+@ToString
+@Table(name = "user_product")
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
-public class Product implements Serializable {
+public class UserProduct implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private User user;
 
-    @Column
-    private String description;
+    @Column(name = "product_source_identifier")
+    private String productSourceIdentifier;
 
-    @Column(name = "source_identifier")
-    private String sourceIdentifier;
 }

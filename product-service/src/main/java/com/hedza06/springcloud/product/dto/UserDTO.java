@@ -1,4 +1,4 @@
-package com.hedza06.springcloud.product.clients.dto;
+package com.hedza06.springcloud.product.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.hedza06.springcloud.product.clients.feigns;
+package com.hedza06.springcloud.product.adapter.api;
 
-import com.hedza06.springcloud.product.clients.dto.UserDTO;
 import com.hedza06.springcloud.product.dto.ProductDTO;
+import com.hedza06.springcloud.product.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

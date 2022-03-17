@@ -1,4 +1,4 @@
-package com.hedza06.springcloud.user.entities;
+package com.hedza06.springcloud.product.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,38 +12,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "user")
+@Table(name = "product")
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 896289853448210489L;
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "full_name")
-    private String fullName;
+    @Column
+    private String name;
 
     @Column
-    private String address;
+    private String description;
 
-    @Column
-    private String email;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "user")
-    private List<UserProduct> products = new ArrayList<>();
+    @Column(name = "source_identifier")
+    private String sourceIdentifier;
 }

@@ -177,9 +177,8 @@ so you can use REST API services and test inner communication between services t
 
 ## Coming next...
 Next steps would be:
-1. Adding keycloak as authorization server (secure custom microservices)
-2. Implementation of hexagonal architecture
-3. Adding Spring Cloud Vault
+1. Open Feign Response Interceptors
+2. Adding Spring Cloud Vault
 
 
 ## Contribution/Suggestions

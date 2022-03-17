@@ -1,7 +1,7 @@
-package com.hedza06.springcloud.user.repositories;
+package com.hedza06.springcloud.user.adapter.persistence;
 
+import com.hedza06.springcloud.user.domain.User;
 import com.hedza06.springcloud.user.dto.UserDTO;
-import com.hedza06.springcloud.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
