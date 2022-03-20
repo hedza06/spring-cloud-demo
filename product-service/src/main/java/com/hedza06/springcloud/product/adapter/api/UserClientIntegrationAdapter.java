@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -23,5 +24,15 @@ public class UserClientIntegrationAdapter implements UserClientIntegrationUseCas
     @Override
     public void assignProductToUserWithEmailAddress(ProductDTO productDTO, String email) {
         userClient.assignProductToUserWithEmailAddress(productDTO, email);
+    }
+
+    @Override
+    public Map<String, Object> simulateBadRequestError() {
+        return userClient.simulateBadRequestError();
+    }
+
+    @Override
+    public void simulateInternalServerError() {
+        userClient.simulateInternalServerError();
     }
 }

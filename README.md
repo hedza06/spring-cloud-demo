@@ -170,6 +170,63 @@ public class FeignClientInterceptor implements RequestInterceptor {
 Possible improvement in this use case can be to store access token for specific amount of time
 in Redis database. This logic will be implemented soon.
 
+
+## Custom Feign Error Decoder (Handler)
+In the following you can find the example of custom feign error handler.
+```
+@Slf4j
+public class CustomFeignErrorDecoder implements ErrorDecoder {
+
+    @Override
+    public Exception decode(String s, Response response)
+    {
+        String requestUrl = response.request().url();
+        Response.Body responseBody = response.body();
+        HttpStatus responseStatus = HttpStatus.valueOf(response.status());
+
+        if (responseStatus.is4xxClientError())
+        {
+            Map<String, Object> convertedResponse = convertResponseToMap(responseBody);
+            return new CustomFeignClientErrorException(
+                "Feign error exception",
+                requestUrl,
+                convertedResponse
+            );
+        }
+        else if (responseStatus.is5xxServerError())
+        {
+            return new CustomInternalFeignClientException(
+                "Internal server error exception", requestUrl
+            );
+        }
+        else {
+            return new Exception("Generic error!");
+        }
+    }
+
+    /**
+     * Converting response body to map
+     *
+     * @param responseBody feign response body
+     * @return Map of string and object data
+     */
+    private Map<String, Object> convertResponseToMap(Response.Body responseBody)
+    {
+        try
+        {
+            return new ObjectMapper()
+                .readValue(responseBody.asInputStream().readAllBytes(), Map.class);
+        }
+        catch (IOException e) {
+            return Collections.emptyMap();
+        }
+    }
+}
+```
+This is only for demo purpose. While developing you should agree a uniform
+error response structure between microservices.
+
+
 ## REST API Services
 In folder `postman.collections` you can find JSON file that can be imported in Postman,
 so you can use REST API services and test inner communication between services through gateway service.
@@ -177,8 +234,9 @@ so you can use REST API services and test inner communication between services t
 
 ## Coming next...
 Next steps would be:
-1. Open Feign Response Interceptors
-2. Adding Spring Cloud Vault
+1. Open Feign Response Interceptors -> `DONE!`
+2. Added Resilience4J  
+3. Adding Spring Cloud Vault
 
 
 ## Contribution/Suggestions

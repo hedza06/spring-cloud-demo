@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -59,5 +60,19 @@ public class ProductController {
     {
         userClientIntegrationUseCase.assignProductToUserWithEmailAddress(product, email);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/simulate/internal-server-error")
+    public ResponseEntity<Void> simulateInternalServerErrorFromUser()
+    {
+        userClientIntegrationUseCase.simulateInternalServerError();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/simulate/bad-request-error")
+    public ResponseEntity<Map<String, Object>> simulateBadRequestErrorFromUser()
+    {
+        Map<String, Object> errorResponse = userClientIntegrationUseCase.simulateBadRequestError();
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
 }

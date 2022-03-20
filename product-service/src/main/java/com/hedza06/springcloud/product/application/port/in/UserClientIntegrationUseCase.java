@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserClientIntegrationUseCase
 {
     List<UserDTO> findUsersByProductId(@PathVariable(value = "productId") String productSourceIdentifier);
     void assignProductToUserWithEmailAddress(@RequestBody ProductDTO productDTO, @PathVariable String email);
+
+    Map<String, Object> simulateBadRequestError();
+    void simulateInternalServerError();
 }
