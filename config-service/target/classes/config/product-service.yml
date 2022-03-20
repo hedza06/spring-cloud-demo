@@ -16,7 +16,8 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8061/eureka/
+      defaultZone: http://localhost:8061/eureka/ # comma-separated Eureka Services
+
 
 
 custom-auth:

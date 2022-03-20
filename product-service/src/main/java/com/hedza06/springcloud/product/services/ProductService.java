@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -69,5 +70,19 @@ public class ProductService {
     @Transactional
     public void assignToUser(ProductDTO product, String userEmailAddress) {
         userClient.assignProductToUserWithEmailAddress(product, userEmailAddress);
+    }
+
+    /**
+     * Simulating internal server error in communication between product and user service
+     */
+    public void simulateInternalServerError() {
+        userClient.simulateInternalServerError();
+    }
+
+    /**
+     * Simulating bad request server error in communication between product and user service
+     */
+    public Map<String, Object> simulateBadRequestError() {
+        return userClient.simulateBadRequestError();
     }
 }

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -46,5 +48,21 @@ public class UserController {
     {
         userService.assignProductToUser(productDTO.getSourceIdentifier(), email);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/simulate/internal-server-error")
+    public ResponseEntity<Void> simulateInternalServerError()
+    {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping(value = "/simulate/bad-request-error")
+    public ResponseEntity<Map<String, Object>> simulateBadRequestError()
+    {
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("validationMessage", "Some field is required");
+        errorResponse.put("field", "Some field name");
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

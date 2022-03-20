@@ -16,7 +16,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8061/eureka/
+      defaultZone: http://localhost:8061/eureka/ # comma-separated Eureka Services
 
 custom-auth:
   url: "http://localhost:8888/auth/realms/SpringCloudKeycloak/protocol/openid-connect/token"
