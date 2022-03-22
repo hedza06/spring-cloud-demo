@@ -126,7 +126,7 @@ public class FeignClientInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate)
     {
-        String accessToken = getAuthToken();
+        String accessToken = getAccessTokenAndBuildSecurityHolder();
         requestTemplate.header("Authorization", "Bearer " + accessToken);
     }
 
@@ -135,7 +135,7 @@ public class FeignClientInterceptor implements RequestInterceptor {
      *
      * @return String value of access token
      */
-    private String getAuthToken()
+    private String getAccessTokenAndBuildSecurityHolder()
     {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -154,8 +154,14 @@ public class FeignClientInterceptor implements RequestInterceptor {
                 url, HttpMethod.POST, requestEntity, KeycloakToken.class
             );
             String accessToken = Objects.requireNonNull(responseEntity.getBody()).getAccessToken();
+            List<String> scopes = KeycloakToken.convertScopesToList(
+                Objects.requireNonNull(responseEntity.getBody()).getTokenScope()
+            );
+            List<GrantedAuthority> grantedAuthorities = KeycloakToken.convertScopesToGrantedAuthorities(scopes);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(accessToken, null, null);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                accessToken, null, grantedAuthorities
+            );
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             return accessToken;

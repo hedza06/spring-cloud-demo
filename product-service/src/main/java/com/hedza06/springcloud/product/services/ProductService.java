@@ -7,6 +7,8 @@ import com.hedza06.springcloud.product.entities.Product;
 import com.hedza06.springcloud.product.mappers.ProductMapper;
 import com.hedza06.springcloud.product.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -44,8 +47,16 @@ public class ProductService {
      * @param productId product source identifier
      * @return List of UserDTO Objects
      */
-    public List<UserDTO> findUsersByProductId(String productId) {
-        return userClient.findUsersByProductId(productId);
+    public List<UserDTO> findUsersByProductId(String productId)
+    {
+        List<UserDTO> users = userClient.findUsersByProductId(productId);
+
+        log.info(
+            "Client scopes/granted authorities: {}",
+            SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+        );
+
+        return users;
     }
 
     /**

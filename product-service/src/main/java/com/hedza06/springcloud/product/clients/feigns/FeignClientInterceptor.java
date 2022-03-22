@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -20,6 +21,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -34,7 +36,7 @@ public class FeignClientInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate)
     {
-        String accessToken = getAuthToken();
+        String accessToken = getAccessTokenAndBuildSecurityHolder();
         requestTemplate.header("Authorization", "Bearer " + accessToken);
     }
 
@@ -43,7 +45,7 @@ public class FeignClientInterceptor implements RequestInterceptor {
      *
      * @return String value of access token
      */
-    private String getAuthToken()
+    private String getAccessTokenAndBuildSecurityHolder()
     {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -62,8 +64,14 @@ public class FeignClientInterceptor implements RequestInterceptor {
                 url, HttpMethod.POST, requestEntity, KeycloakToken.class
             );
             String accessToken = Objects.requireNonNull(responseEntity.getBody()).getAccessToken();
+            List<String> scopes = KeycloakToken.convertScopesToList(
+                Objects.requireNonNull(responseEntity.getBody()).getTokenScope()
+            );
+            List<GrantedAuthority> grantedAuthorities = KeycloakToken.convertScopesToGrantedAuthorities(scopes);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(accessToken, null, null);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                accessToken, null, grantedAuthorities
+            );
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             return accessToken;
