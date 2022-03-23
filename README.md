@@ -243,7 +243,8 @@ Next steps would be:
 2. Implementation of hexagonal architecture -> https://github.com/hedza06/spring-cloud-demo/tree/hexagonal/architecture -> `DONE!`
 3. Adding Filters and getting token inside them instead using Feign Interceptor to get an access token
 4. Adding Resilience4J or Hystrix (Circuit Breaker, Fallback methods and Bulkheads)
-5. Adding Spring Cloud Vault
+5. Adding Spring Cloud Stream (messaging abstraction)
+6. Adding Spring Cloud Vault
 
 
 ## Contribution/Suggestions
