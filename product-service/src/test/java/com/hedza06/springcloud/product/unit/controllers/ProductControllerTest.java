@@ -36,11 +36,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = ProductController.class)
 public class ProductControllerTest {
 
-    private static final String GET_ALL_API = "/product/all";
-    private static final String CREATE_API  = "/product";
-    private static final String ASSIGN_TO_USER_API = "/product/assign-to-user/";
+    private static final String IS_ALIVE_API                       = "/product/is-alive";
+    private static final String GET_ALL_API                        = "/product/all";
+    private static final String CREATE_API                         = "/product";
+    private static final String ASSIGN_TO_USER_API                 = "/product/assign-to-user/";
     private static final String SIMULATE_INTERNAL_SERVER_ERROR_API = "/product/simulate/internal-server-error";
-    private static final String SIMULATE_BAD_REQUEST_ERROR_API = "/product/simulate/bad-request-error";
+    private static final String SIMULATE_BAD_REQUEST_ERROR_API     = "/product/simulate/bad-request-error";
 
     @Autowired
     private MockMvc mockMvc;
@@ -156,5 +157,13 @@ public class ProductControllerTest {
             .andExpect(jsonPath("requestUrl").value("bad-request-url"))
             .andExpect(jsonPath("errorBody.msgFromClient").value("Error occurred in data manipulation"))
             .andExpect(jsonPath("errorBody.statusFromClient").value("DATA-ERROR"));
+    }
+
+    @Test
+    public void shouldBeAlive() throws Exception
+    {
+        mockMvc
+            .perform(MockMvcRequestBuilders.get(IS_ALIVE_API))
+            .andExpect(status().isOk());
     }
 }

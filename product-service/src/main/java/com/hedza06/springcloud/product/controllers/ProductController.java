@@ -28,10 +28,10 @@ public class ProductController {
     private final ProductService productService;
 
 
-    @GetMapping
-    public ResponseEntity<String> test()
+    @GetMapping("/is-alive")
+    public ResponseEntity<String> isAlive()
     {
-        return new ResponseEntity<>("Happy coding from product world!", HttpStatus.OK);
+        return new ResponseEntity<>("Alive -> Happy coding from product world!", HttpStatus.OK);
     }
 
     @GetMapping(value = "/all")
