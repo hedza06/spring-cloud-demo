@@ -5,7 +5,9 @@ import com.hedza06.springcloud.product.entities.Product;
 
 import java.util.List;
 
-public class TestUtils {
+public final class TestUtils {
+
+    private TestUtils() { }
 
     /**
      * Getting products for response entity

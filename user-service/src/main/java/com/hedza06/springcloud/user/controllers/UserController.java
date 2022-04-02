@@ -28,10 +28,10 @@ public class UserController {
     private final UserService userService;
 
 
-    @GetMapping
-    public ResponseEntity<String> test()
+    @GetMapping(value = "/is-alive")
+    public ResponseEntity<String> isAlive()
     {
-        return new ResponseEntity<>("Happy coding from user world!", HttpStatus.OK);
+        return new ResponseEntity<>("Alive -> Happy coding from user world!", HttpStatus.OK);
     }
 
     @GetMapping(value = "/by-product/{productId}")
