@@ -1,4 +1,4 @@
-package com.hedza06.springcloud.user.unit;
+package com.hedza06.springcloud.user.unit.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hedza06.springcloud.user.controllers.UserController;
