@@ -1,5 +1,6 @@
 package com.hedza06.springcloud.product.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product implements Serializable {
 
     @Id

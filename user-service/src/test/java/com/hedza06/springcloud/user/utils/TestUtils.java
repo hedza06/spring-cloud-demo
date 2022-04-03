@@ -18,7 +18,7 @@ public final class TestUtils {
     {
         UserDTO userOne = new UserDTO(1, "Heril Muratovic", "P-001");
         UserDTO userTwo = new UserDTO(2, "John Doe", "P-001");
-        UserDTO userThree = new UserDTO(2, "Jake Doe", "P-001");
+        UserDTO userThree = new UserDTO(3, "Jake Doe", "P-001");
 
         return List.of(userOne, userTwo, userThree);
     }
