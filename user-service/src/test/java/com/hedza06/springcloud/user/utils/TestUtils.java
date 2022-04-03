@@ -2,7 +2,9 @@ package com.hedza06.springcloud.user.utils;
 
 import com.hedza06.springcloud.user.dto.ProductDTO;
 import com.hedza06.springcloud.user.dto.UserDTO;
+import com.hedza06.springcloud.user.entities.User;
 
+import java.util.Collections;
 import java.util.List;
 
 public final class TestUtils {
@@ -36,5 +38,21 @@ public final class TestUtils {
         product.setSourceIdentifier("S-NEW");
 
         return product;
+    }
+
+    /**
+     * Get mocked user
+     *
+     * @return User Entity
+     */
+    public static User getMockedUser()
+    {
+        return new User(
+            1,
+            "Heril Muratovic",
+            "test address",
+            "hedzaprog@gmail.com",
+            Collections.emptyList()
+        );
     }
 }

@@ -1,5 +1,6 @@
 package com.hedza06.springcloud.user.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,7 @@ import java.util.List;
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     private static final long serialVersionUID = 896289853448210489L;
