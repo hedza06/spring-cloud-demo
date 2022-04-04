@@ -1,6 +1,7 @@
 package com.hedza06.springcloud.product.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Entity
+@Builder
 @Table(name = "product")
 @DynamicInsert
 @DynamicUpdate

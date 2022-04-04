@@ -1,6 +1,7 @@
 package com.hedza06.springcloud.user.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
+@Builder
 @Table(name = "user")
 @DynamicInsert
 @DynamicUpdate
